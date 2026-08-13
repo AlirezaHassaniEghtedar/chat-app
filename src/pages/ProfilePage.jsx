@@ -1,5 +1,5 @@
 import { useAuthStore } from "../store/useAuthStore.js";
-import { Mail, Plus, Trash, User } from "lucide-react";
+import { Loader, Mail, Plus, Trash, User } from "lucide-react";
 import { useState } from "react";
 
 export default function ProfilePage() {
@@ -74,15 +74,17 @@ export default function ProfilePage() {
               className={`btn btn-soft btn-error ${isDeletingProfile ? "animate-pulse" : ""}`}
               onClick={handleDeleteProfileImage}
             >
-              <Trash className="size-4" />
-              delete profile picture
+              {isDeletingProfile ? (
+                <Loader className="size-4 animate-spin" />
+              ) : (
+                <Trash className="size-4" />
+              )}
+              {isDeletingProfile ? "deleting" : "delete profile picture"}
             </button>
             <p className="text-sm text-zinc-400 first-letter:uppercase">
-              {isUpdatingProfile && "uploading..."}
-              {isDeletingProfile && "deleting..."}
-              {!isUpdatingProfile &&
-                !isDeletingProfile &&
-                "click the camera icon to update your photo"}
+              {isUpdatingProfile
+                ? "uploading..."
+                : "click the camera icon to update your photo"}
             </p>
           </div>
           <div className="space-y-6">
