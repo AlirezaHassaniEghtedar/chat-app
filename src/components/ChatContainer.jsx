@@ -1,12 +1,14 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { useChatStore } from "../store/useChatStore.js";
+import { useAuthStore } from "../store/useAuthStore.js";
+
+import { formatMessageTime } from "../lib/utils.lib.js";
 
 import ChatHeader from "./ChatHeader.jsx";
-import MessageInput from "./MessageInput.jsx";
 import MessageSkeleton from "./MessageSkeleton.jsx";
-import { useAuthStore } from "../store/useAuthStore.js";
-import { formatMessageTime } from "../lib/utils.lib.js";
+import MessageInput from "./MessageInput.jsx";
+import ImageModal from "./ImageModal.jsx";
 
 export default function ChatContainer() {
   const { messages, getMessages, isMessagesLoading, selectedUser } =
@@ -17,6 +19,9 @@ export default function ChatContainer() {
     getMessages(selectedUser._id).then();
   }, [selectedUser._id, getMessages]);
 
+  const imageModalRef = useRef(null);
+  const [selectedImage, setSelectedImage] = useState(null);
+
   if (isMessagesLoading)
     return (
       <div className="flex flex-col flex-1 overflow-auto">
@@ -25,6 +30,11 @@ export default function ChatContainer() {
         <MessageInput />
       </div>
     );
+
+  const handleOpenImageModel = (image) => {
+    setSelectedImage(image);
+    imageModalRef?.current?.showModal();
+  };
 
   return (
     <div className="flex flex-1 flex-col overflow-auto">
@@ -56,8 +66,9 @@ export default function ChatContainer() {
             <div className="chat-bubble flex flex-col gap-2 items-start">
               {message.image && (
                 <img
+                  onClick={() => handleOpenImageModel(message.image)}
                   src={message.image}
-                  className="rounded-md"
+                  className={`rounded-md max-w-md w-full cursor-pointer ${message.text ? "mt-1" : "my-1"}`}
                   alt="attachment"
                 />
               )}
@@ -68,6 +79,7 @@ export default function ChatContainer() {
       </div>
 
       <MessageInput />
+      <ImageModal imageModalRef={imageModalRef} imageSrc={selectedImage} />
     </div>
   );
 }
