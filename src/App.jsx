@@ -7,6 +7,7 @@ import { Loader } from "lucide-react";
 import { Toaster } from "react-hot-toast";
 
 import { useAuthStore } from "./store/useAuthStore.js";
+import { useThemeStore } from "./store/useThemeStore.js";
 
 import Navbar from "./components/Navbar.jsx";
 
@@ -15,7 +16,7 @@ import SignupPage from "./pages/SignupPage.jsx";
 import LoginPage from "./pages/LoginPage.jsx";
 import SettingsPage from "./pages/SettingsPage.jsx";
 import ProfilePage from "./pages/ProfilePage.jsx";
-import { useThemeStore } from "./store/useThemeStore.js";
+import NotFoundPage from "./pages/NotFoundPage.jsx";
 
 export default function App() {
   const { authUser, checkAuth, isCheckingAuth } = useAuthStore();
@@ -55,6 +56,7 @@ export default function App() {
             path="/profile"
             element={authUser ? <ProfilePage /> : <Navigate to="/login" />}
           />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
 
