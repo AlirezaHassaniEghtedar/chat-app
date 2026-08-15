@@ -1,19 +1,26 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import { useChatStore } from "../store/useChatStore.js";
+import { useAuthStore } from "../store/useAuthStore.js";
 
 import SidebarSkeleton from "./SidebarSkeleton.jsx";
+
 import { Users } from "lucide-react";
-import { useAuthStore } from "../store/useAuthStore.js";
 
 export default function Sidebar() {
   const { getUsers, users, selectedUser, setSelectedUser, isUsersLoading } =
     useChatStore();
   const { onlineUsers } = useAuthStore();
 
+  const [showOnlineOnly, setShowOnlineOnly] = useState(false);
+
   useEffect(() => {
     getUsers().then();
   }, [getUsers]);
+
+  const filteredUsers = showOnlineOnly
+    ? users.filter((user) => onlineUsers.includes(user._id))
+    : users;
 
   if (isUsersLoading) return <SidebarSkeleton />;
 
@@ -26,11 +33,24 @@ export default function Sidebar() {
             contacts
           </span>
         </div>
-        {/*  TODO : online filter toggle */}
+        <div className="mt-4 hidden lg:flex items-center gap-2">
+          <label className="cursor-pointer flex items-center gap-2">
+            <input
+              type="checkbox"
+              checked={showOnlineOnly}
+              onChange={(e) => setShowOnlineOnly(e.target.checked)}
+              className="checkbox checkbox-sm"
+            />
+            <span className="text-sm capitalize">show online only</span>
+          </label>
+          <span className="text-xs text-zinc-500">
+            {onlineUsers.length - 1} online
+          </span>
+        </div>
       </div>
 
       <div className="overflow-y-auto w-full">
-        {users.map((user) => (
+        {filteredUsers.map((user) => (
           <button
             key={user._id}
             onClick={() => setSelectedUser(user)}
@@ -57,6 +77,11 @@ export default function Sidebar() {
             </div>
           </button>
         ))}
+        {filteredUsers.length === 0 && (
+          <div className="text-center text-zinc-500 py-4 first-letter:uppercase">
+            no online users
+          </div>
+        )}
       </div>
     </aside>
   );
