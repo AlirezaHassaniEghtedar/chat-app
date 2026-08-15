@@ -47,7 +47,7 @@ export default function MessageInput() {
   };
 
   return (
-    <div className="p-4 w-full">
+    <div className="p-4 w-full border-t border-base-300">
       {imagePreview && (
         <div className="mb-3 flex items-center gap-2">
           <div className="relative">
@@ -70,7 +70,7 @@ export default function MessageInput() {
         <div className="flex-1 flex gap-2">
           <input
             type="text"
-            className="w-full input input-bordered border-neutral-100/25 rounded-lg input-sm sm:input-md focus:outline-primary"
+            className="w-full input input-bordered border-primary/25 rounded-lg input-sm sm:input-md focus:outline-primary"
             placeholder="type a message..."
             value={text}
             onChange={(e) => setText(e.target.value)}
