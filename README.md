@@ -11,7 +11,6 @@ This is a full-stack chat application built with the MERN stack and Socket.io.
 ## Screenshots
 
 **login page**
-
 <br>
 
 ![login page](/public/screenshots/login-page.jpg)
@@ -20,7 +19,6 @@ This is a full-stack chat application built with the MERN stack and Socket.io.
 <br>
 
 **signup page**
-
 <br>
 
 ![signup page](/public/screenshots/signup-page.jpg)
@@ -29,7 +27,6 @@ This is a full-stack chat application built with the MERN stack and Socket.io.
 <br>
 
 **Profile page**
-
 <br>
 
 ![profile page](/public/screenshots/profile-page.jpg)
@@ -38,7 +35,6 @@ This is a full-stack chat application built with the MERN stack and Socket.io.
 <br>
 
 **settings / themes**
-
 <br>
 
 ![theme customizing](/public/screenshots/theme-customizing.jpg)
@@ -47,7 +43,6 @@ This is a full-stack chat application built with the MERN stack and Socket.io.
 <br>
 
 **real time chat**
-
 <br>
 
 ![real time chat](/public/screenshots/real-time-chat.jpg)
