@@ -45,6 +45,7 @@ export const useChatStore = create((set, get) => ({
         `/messages/send/${selectedUser._id}`,
         messageData,
       );
+
       set({ messages: [...messages, res.data] });
     } catch (error) {
       toast.error(error.response.data.message);
@@ -59,9 +60,9 @@ export const useChatStore = create((set, get) => ({
     const socket = useAuthStore.getState().socket;
 
     socket.on("newMessage", (newMessage) => {
-      const isMessageSentFromSelectedUser =
-        newMessage.senderId !== selectedUser._id;
-      if (!isMessageSentFromSelectedUser) return;
+      const isMessageFromSelectedUser =
+        newMessage.senderId === selectedUser._id;
+      if (!isMessageFromSelectedUser) return;
 
       set({ messages: [...get().messages, newMessage] });
     });

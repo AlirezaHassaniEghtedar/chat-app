@@ -23,6 +23,22 @@ export default function ChatContainer() {
   const { authUser } = useAuthStore();
 
   const messageEndRef = useRef(null);
+  const isFirstLoad = useRef(true);
+
+  useEffect(() => {
+    isFirstLoad.current = true;
+  }, [selectedUser._id]);
+
+  useEffect(() => {
+    if (!messageEndRef || !messages) return;
+
+    if (isFirstLoad.current) {
+      messageEndRef?.current?.scrollIntoView({ behavior: "instant" });
+      isFirstLoad.current = false;
+    } else {
+      messageEndRef?.current?.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages]);
 
   useEffect(() => {
     getMessages(selectedUser._id).then();
@@ -36,12 +52,6 @@ export default function ChatContainer() {
     subscribeToMessages,
     unsubscribeFromMessages,
   ]);
-
-  useEffect(() => {
-    if (messageEndRef.current && messages) {
-      messageEndRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, [messages]);
 
   const imageModalRef = useRef(null);
   const [selectedImage, setSelectedImage] = useState(null);
@@ -71,7 +81,6 @@ export default function ChatContainer() {
             <div
               key={message._id}
               className={`chat ${message?.senderId === authUser._id ? "chat-end" : "chat-start"}`}
-              ref={messageEndRef}
             >
               <div className="chat-image avatar">
                 <div className="size-10 rounded-full border">
@@ -103,6 +112,7 @@ export default function ChatContainer() {
               </div>
             </div>
           ))}
+        {messages.length > 0 && <div ref={messageEndRef}></div>}
       </div>
 
       <MessageInput />
