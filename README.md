@@ -3,6 +3,7 @@
 This is a full-stack chat application built with the MERN stack and Socket.io.
 
 [frontend repo](https://github.com/AlirezaHassaniEghtedar/chat-app)
+<br>
 [backend repo](https://github.com/AlirezaHassaniEghtedar/api-chat-app)
 
 <br><br>
@@ -10,19 +11,39 @@ This is a full-stack chat application built with the MERN stack and Socket.io.
 ## Screenshots
 
 **login page**
+<br>
 ![login page](/public/screenshots/login-page.jpg)
 
+<br>
+<br>
+
 **signup page**
+<br>
 ![signup page](/public/screenshots/signup-page.jpg)
 
+<br>
+<br>
+
 **Profile page**
+<br>
 ![profile page](/public/screenshots/profile-page.jpg)
 
+<br>
+<br>
+
 **settings / themes**
+<br>
 ![theme customizing](/public/screenshots/theme-customizing.jpg)
 
+<br>
+<br>
+
 **real time chat**
+<br>
 ![real time chat](/public/screenshots/real-time-chat.jpg)
+
+<br>
+<br>
 
 <br><br>
 
